@@ -7,8 +7,7 @@ def main():
 	
 	J_CAMERA_ID_SIZE = 512
 	J_ST_SUCCESS = 0
-	
-	print "flag"
+
 	
 	#list of ctypes variables
 	hFactory = c_long() #factory handle
@@ -24,28 +23,28 @@ def main():
 		#search for cameras on all the networks
 		retval = dll.J_Factory_UpdateCameraList(hFactory, pointer(bHasChanged))
 		if ((retval == J_ST_SUCCESS) and bHasChanged):
-			retval = J_Factory_GetNumOfCameras(hFactory, pointer(nCameras))
-			print("%d cameras are detected")%nCameras
+			retval = dll.J_Factory_GetNumOfCameras(hFactory, pointer(nCameras))
+			print nCameras, "cameras are detected" 
 			
 			
 			if ((retval == J_ST_SUCCESS) and nCameras > 0):
 				#get the first camera in the camera list
 				index = c_uint32(0)
 				retval = dll.J_Factory_GetCameraIDByIndex(hFactory, index, sCameraId, pointer(size))
+				print retval
 				
 				if (retval == J_ST_SUCCESS):
-					print("Camera is returned successfully")
+					raise "Camera is returned successfully" 
 				
 				else: 
-					print("Camera cannot be returned")
+					raise "Camera cannot be returned" 
 			else:
-				print("No camera is found")
+				raise "No camera is found" 
 		else:
-			print("Camera list is not updated")
+			raise "Camera list is not updated" 
 	else:
-		print("Failed to open factory")
+		raise "Failed to open factory" 
 		
 		
 if __name__ == '__main___':
-	print "here"
 	main()
