@@ -41,7 +41,7 @@ def main():
 				
 					
 					
-					#retval = dll.J_Camera_Close(hFactory)
+					#retval = dll.J_Camera_Close(hCamera)
 					#print "Camera closed successfully"
 					
 				else: 
