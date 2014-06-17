@@ -10,13 +10,13 @@ def main():
 
 	
 	#list of ctypes variables
-	hFactory = c_long() #factory handle
-	hCamera = c_long()	#camera handle
+	hFactory = c_void_p() #factory handle
+	hCamera = c_void_p()	#camera handle
 	retval = c_int()	#capture return value from the functions
 	bHasChanged = c_bool() 
 	nCameras = c_uint32() #number of cameras
 	sCameraId = (c_int8*J_CAMERA_ID_SIZE)() 
-	size = c_uint32()
+	size = c_uint32(J_CAMERA_ID_SIZE)
 	
 	retval = dll.J_Factory_Open("", pointer(hFactory))
 	if (retval == J_ST_SUCCESS):
@@ -24,18 +24,26 @@ def main():
 		retval = dll.J_Factory_UpdateCameraList(hFactory, pointer(bHasChanged))
 		if ((retval == J_ST_SUCCESS) and bHasChanged):
 			retval = dll.J_Factory_GetNumOfCameras(hFactory, pointer(nCameras))
-			print nCameras, "cameras are detected" 
+			print nCameras,"cameras are detected" 
 			
 			
 			if ((retval == J_ST_SUCCESS) and nCameras > 0):
 				#get the first camera in the camera list
 				index = c_uint32(0)
 				retval = dll.J_Factory_GetCameraIDByIndex(hFactory, index, sCameraId, pointer(size))
-				print retval
 				
 				if (retval == J_ST_SUCCESS):
-					raise "Camera is returned successfully" 
+					print "Camera ", index, " = ", sCameraId	
+					retval = dll.J_Camera_Open(hFactory, sCameraId, pointer(hCamera))
+	
+					print "Camera opened successfully"
 				
+				
+					
+					
+					#retval = dll.J_Camera_Close(hFactory)
+					#print "Camera closed successfully"
+					
 				else: 
 					raise "Camera cannot be returned" 
 			else:
