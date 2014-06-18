@@ -53,14 +53,16 @@ def main():
 	#CALLBACKFUNC = CFUNCTYPE(None,POINTER(J_tIMAGE_INFO))
 	TESTFUNC = CFUNCTYPE(None)
 	
-	#def StreamCBFunc(pImageInfo):
-	#	dll.J_Image_ShowImage(g_hView,pImageInfo)
+	def StreamCBFunc(pImageInfo):
+		dll.J_Image_ShowImage(g_hView,pImageInfo)
 		
 	def test():
-		print "yes"
+		print "running"
+		#sleep(2)
 		
-	#call_back = CALLBACKFUNC(test)
+	#call_back = CALLBACKFUNC(StreamCBFunc)
 	call_back = TESTFUNC(test)
+	cast(call_back,c_void_p)
 	#call_back_content = cast(call_back,c_void_p)
 	#vfptr = cast(call_back,c_void_p).value
 	#ptr=cast(StreamCBFunc,pointer(c_void_p))
