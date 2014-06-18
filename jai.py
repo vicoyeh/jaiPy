@@ -1,8 +1,6 @@
 from ctypes import *
 
 
-
-
 def main():
 	
 	#load dll
