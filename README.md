@@ -3,7 +3,7 @@ jaiPy
 
 jaiPy is a Python wrapper for JAI Jai_Factory.dll. The goal is to provide a Python interface for controlling JAI cameras directly. The Python wrapper allows the user to run Python code in normal Python IDE instead of running .NET SDK class wrappers in IronPython (developed by the official JAI company). jai.py is bascially translating the low level C API into python using ctypes library. The C sample code is written in the offical JAI documentation.
 
-##Problem
+##Unsolved issue
 jai.py is running successfully before line 101:
   dll.J_Camera_ExecuteCommanda
 
